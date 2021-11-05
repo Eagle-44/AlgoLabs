@@ -7,6 +7,10 @@ public class BinarySearchTree {
 
     private Node root;
 
+    public Node getRoot() {
+        return root;
+    }
+
     public BinarySearchTree() {
         root = null;
     }
@@ -14,25 +18,25 @@ public class BinarySearchTree {
     public void insertNode(int key) {
         Node newNode = new Node();
         newNode.setKey(key);
-        if (root == null) { // if root not exist --> newNode is new node
+        if (root == null) {
             root = newNode;
-        } else { // if root exist ... start from current
+        } else {
             Node current = root;
             Node parent;
             while (true) {
                 parent = current;
                 if (key == current.getKey()) {
                     return;
-                } else if (key < current.getKey()) { //move left
+                } else if (key < current.getKey()) {
                     current = current.getLeft();
                     if (current == null) {
-                        parent.setLeft(newNode); //insert in left  node
+                        parent.setLeft(newNode);
                         return;
                     }
                 } else {
                     current = current.getRight();
                     if (current == null){
-                        parent.setRight(newNode);// insert in right node
+                        parent.setRight(newNode);
                         return;
                     }
                 }
@@ -43,43 +47,44 @@ public class BinarySearchTree {
     public Node findNode(int key){
         Node current = root;
         while (current.getKey() != key) {
-            if (key < current.getKey()){ //move left
+            if (key < current.getKey()){
                 current = current.getLeft();
-            } else { //move right
+            } else {
                 current = current.getRight();
             }
-            if (current == null) { //if child not exist --> return null
+            if (current == null) {
                 return null;
             }
         }
-        return current; // return find elem
+        return current;
     }
+
 
     public boolean deleteNode(int key) {
         Node current = root;
         Node parent = root;
         boolean isLeft = true;
-        while (current.getKey() != key) { // start find key
+        while (current.getKey() != key) {
             parent = current;
-            if (key < current.getKey()) { // move to left node
+            if (key < current.getKey()) {
                 isLeft = true;
                 current = current.getLeft();
-            } else { // move to right node
+            } else {
                 isLeft = false;
                 current = current.getRight();
             }
             if (current == null)
-                return false; // not find
+                return false;
         }
         if (current.getLeft() == null && current.getRight() == null) {
-            if (current == root) // if node = root --> tree will be cleaned
+            if (current == root)
                 root = null;
-            else if (isLeft) // if node != --> node detach from parent
+            else if (isLeft)
                 parent.setLeft(null);
             else
                 parent.setRight(null);
         }
-        else if (current.getRight() == null){ // if right not exist --> node left
+        else if (current.getRight() == null){
             if (current == root)
                 root = current.getLeft();
             else if (isLeft)
@@ -87,7 +92,7 @@ public class BinarySearchTree {
             else
                 parent.setRight(current.getLeft());
         }
-        else if (current.getLeft() == null){ // if legt not exist --> node right
+        else if (current.getLeft() == null){
             if (current == root)
                 root = current.getRight();
             else if (isLeft)
@@ -95,8 +100,8 @@ public class BinarySearchTree {
             else
                 parent.setRight(current.getRight());
         }
-        else { // if exist left and right --> node send to inheritor
-            Node inheritor = inheritorReceiver(current); // looking for new inherit node for deleted node
+        else {
+            Node inheritor = inheritorReceiver(current);
             if (current == root)
                 root = inheritor;
             else if (isLeft)
@@ -110,13 +115,13 @@ public class BinarySearchTree {
     private Node inheritorReceiver(Node node) {
         Node parent = node;
         Node inherNode = node;
-        Node current = node.getRight(); // move to right inheritor
-        while (current != null) { // while left 'left' inheritors
+        Node current = node.getRight();
+        while (current != null) {
             parent = inherNode;
             inherNode = current;
-            current = current.getLeft(); // move to left inheritor
+            current = current.getLeft();
         }
-        if (inherNode != node.getRight()) { // if inheritor not right
+        if (inherNode != node.getRight()) {
             parent.setLeft(inherNode.getRight());
             inherNode.setRight(node.getRight());
         }
@@ -161,6 +166,5 @@ public class BinarySearchTree {
         }
         System.out.println(separator);
     }
-
 
 }

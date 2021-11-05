@@ -29,4 +29,8 @@ public class Node {
     public void setRight(Node right) {
         this.right = right;
     }
+
+    public void printNode() {
+        System.out.println(" You found Node : " + key);
+    }
 }

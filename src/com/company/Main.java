@@ -13,5 +13,7 @@ public class Main {
 
         tree.print();
 
+        Node findNode = tree.findNode(16);
+        findNode.printNode();
     }
 }
